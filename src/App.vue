@@ -1,10 +1,23 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <ConfigProvider :locale="locale">
+    <AButton>{{'Hello World'}}</AButton>
+  </ConfigProvider>
 </template>
+
+<script lang="ts">
+import {Options, Vue} from "vue-class-component";
+import {ConfigProvider, Button as AButton} from 'ant-design-vue'
+import {mapState} from "vuex";
+import {ConfigStateType} from "@/store/types";
+@Options({
+  components: {ConfigProvider, AButton},
+  computed: {
+    ... mapState('config', ['locale'])
+  }
+})
+export default class App extends Vue {
+}
+</script>
 
 <style lang="less">
 #app {
