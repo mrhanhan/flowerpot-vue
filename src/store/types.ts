@@ -12,7 +12,14 @@ export interface RootStateType {
  */
 export interface AllModelTypes extends RootStateType {
 
-    config: ConfigStateType
+    /**
+     * 配置状态
+     */
+    config: ConfigStateType;
+    /**
+     * 登录状态
+     */
+    login: LoginStateType;
 }
 
 /**
@@ -20,4 +27,14 @@ export interface AllModelTypes extends RootStateType {
  */
 export interface ConfigStateType {
     locale: Locale
+}
+
+/**
+ * 登录状态
+ */
+export interface LoginStateType {
+    /**
+     * 是否登录了
+     */
+    loggedIn: boolean;
 }

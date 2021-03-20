@@ -1,21 +1,33 @@
 <template>
   <ConfigProvider :locale="locale">
-    <AButton>{{'Hello World'}}</AButton>
+    <AButton @click="doLogin(!loggedIn)">{{'Hello World'}}, 是否登录: {{loggedIn ? '登录' : '未登录'}}</AButton>
+    <Index></Index>
   </ConfigProvider>
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component";
 import {ConfigProvider, Button as AButton} from 'ant-design-vue'
-import {mapState} from "vuex";
-import {ConfigStateType} from "@/store/types";
+import {mapState, createNamespacedHelpers} from "vuex";
+import {useStore} from "@/store";
+import Index from "@/components/Index.vue";
+const login = createNamespacedHelpers('login');
+
 @Options({
-  components: {ConfigProvider, AButton},
+  components: {ConfigProvider, AButton, Index},
   computed: {
-    ... mapState('config', ['locale'])
+    ... mapState('config', ['locale']),
+    ... login.mapState(['loggedIn']),
+  },
+  methods: {
+    ...login.mapActions(['doLogin'])
   }
 })
 export default class App extends Vue {
+
+  created() {
+    console.log(useStore())
+  }
 }
 </script>
 

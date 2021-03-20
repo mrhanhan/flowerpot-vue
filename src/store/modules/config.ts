@@ -10,6 +10,9 @@ export const config: Module<ConfigStateType, RootStateType> = {
     },
     getters: {
         getLocale: ({locale})=>locale
+    },
+    mutations: {
+
     }
 
 }
