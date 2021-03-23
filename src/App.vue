@@ -2,6 +2,8 @@
   <ConfigProvider :locale="locale">
     <router-view></router-view>
   </ConfigProvider>
+
+  <a-button></a-button>
 </template>
 
 <script lang="ts">

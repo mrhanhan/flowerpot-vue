@@ -1,5 +1,5 @@
 import {defineComponent} from 'vue'
-import {Layout, Menu} from 'ant-design-vue'
+import {Button as AButton, Layout, Menu} from 'ant-design-vue'
 const {Header, Sider , Content} = Layout;
 
 export default defineComponent({
@@ -12,7 +12,8 @@ export default defineComponent({
                   <Layout hasSider={true}>
                       <Sider>
                           <Menu>
-                              <Menu.Item></Menu.Item>
+                              <Menu.Item key="1">首页</Menu.Item>
+                              <Menu.Item key="2">系统</Menu.Item>
                           </Menu>
                       </Sider>
                       <Content>
