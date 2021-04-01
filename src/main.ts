@@ -5,9 +5,12 @@ import router from './router'
 import 'ant-design-vue/dist/antd.dark.less'
 import './assets/less/golbal.less'
 import store, {key} from './store'
+/* Mock */
+import './mock';
 
 const app = createApp(App);
+
 app.use(router);
 app.use(store, key);
 // app.use(Antd);
-app.mount('#app')
+app.mount('#app');

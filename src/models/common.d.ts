@@ -17,3 +17,8 @@ export declare interface Result<T> {
      */
     code: number;
 }
+
+/**
+ * 参数
+ */
+export declare type Param<T> = {[key in string]: T}

@@ -36,7 +36,7 @@ export default  defineComponent({
 
         const handlerMenuClick = ({keyPath}: {key: string, keyPath: Array<string>}) => {
             if (keyPath) {
-                router.push('/' + keyPath.reverse().join('/')).then(r => {console.log('跳转');
+                router.push('/' + keyPath.reverse().join('/')).then(() => {console.log('跳转');
                     emit('menu', keyPath);});
             }
         }
