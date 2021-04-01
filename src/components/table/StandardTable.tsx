@@ -16,6 +16,7 @@ export default defineComponent({
             <Table
                 loading={holder?.loading}
                 bordered={true}
+                columns={holder?.columns}
                 dataSource={holder?.dataSource}
                 rowKey={holder?.rowKey}
                 pagination={holder?.page}
