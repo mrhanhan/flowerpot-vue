@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 // import * as Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.dark.css'
-
+import 'ant-design-vue/dist/antd.dark.less'
+import './assets/less/golbal.less'
 import store, {key} from './store'
 
 const app = createApp(App);
