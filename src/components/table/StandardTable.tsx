@@ -21,7 +21,7 @@ export default defineComponent({
                 rowKey={holder?.rowKey}
                 pagination={holder?.page}
             >
-                {{...$slots}}
+                {$slots}
             </Table>
         </div>
     }

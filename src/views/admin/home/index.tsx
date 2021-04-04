@@ -1,15 +1,15 @@
 import {defineComponent} from 'vue';
 import {Card} from "ant-design-vue";
-import {StandardTable} from "@/components/table";
 
 export default defineComponent({
     name: 'Home',
     setup() {
-
+        const array = Array(10).fill(10);
         return ()=>(<Card>
-            <StandardTable holder={{page: {current: 0, pageSize: 20}}}>
-
-            </StandardTable>
+            Admin
+            {
+                array.map(t => <div v-permission={t}>{t}</div>)
+            }
         </Card>)
     }
 });
