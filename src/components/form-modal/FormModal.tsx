@@ -1,14 +1,15 @@
-import {defineComponent, PropType} from 'vue';
+import {defineComponent, PropType, } from 'vue';
 import {FormModalHolder} from "@/components/form-modal/type";
 import {Modal, Spin} from "ant-design-vue";
 
 
 export default defineComponent({
     props: {
-        holder: Object as PropType<FormModalHolder>
+        holder: Object as PropType<FormModalHolder>,
+        onOk: Function as PropType<(()=>void)>,
+        onClose: Function as PropType<(()=>void)>
     },
-    setup(props, a) {
-        console.log(a);
+    setup() {
         return {};
     },
     render() {

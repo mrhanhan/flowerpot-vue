@@ -6,8 +6,9 @@ import {API_BASE_URL} from "@/utils/API";
  * Result Response转换
  * @param res
  */
-const resultTransformResponse = (res: Param<unknown>) => {
-    return res;
+const resultTransformResponse = (res: string) => {
+    const {data} = JSON.parse(res) as {data: Param<unknown>};
+    return data;
 }
 
 /**
@@ -29,3 +30,8 @@ export const HttpClient = axios.create({
     transformResponse: resultTransformResponse
 
 });
+
+
+export const postHeaders = {
+    'Content-Type': 'application/json'
+}

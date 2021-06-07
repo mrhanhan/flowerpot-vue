@@ -29,6 +29,11 @@ interface MenuRaw extends _RouteRecordBase{
      * 权限
      */
     permission?: string;
+    /**
+     * 使用的布局信息
+     * 如果勾选了此选项，则生成路由的时候会自动为其生成一个 path 为 ''的子路由信息
+     */
+    layoutViewName?: string;
 }
 /**
  * 类型

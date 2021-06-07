@@ -14,7 +14,8 @@ const router = createRouter({
     },
     ...parseRoutes(adminRoutes, viewMap)
   ]
-})
+});
+console.log(parseRoutes(adminRoutes, viewMap));
 
 
 export default router

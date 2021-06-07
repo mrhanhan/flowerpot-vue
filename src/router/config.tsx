@@ -1,12 +1,20 @@
 import {RouteConfig} from "@/router/types";
-import {SettingOutlined} from "@ant-design/icons-vue";
+import {HomeOutlined, ProfileFilled, SettingOutlined} from "@ant-design/icons-vue";
 
 export const adminRoutes: Array<RouteConfig> = [
+    {
+        path: '/home',
+        name: 'Home',
+        title: '平台首页',
+        icon: (<HomeOutlined/>),
+        viewName: 'HomeView',
+        layoutViewName: 'AdminLayoutView'
+    },
    {
         path: '/admin',
-        name: '/admin',
+        name: 'Admin',
         title: '后台管理',
-        icon: (<SettingOutlined/>),
+        icon: (<ProfileFilled/>),
         viewName: 'AdminLayoutView',
         children: [
             {
@@ -35,8 +43,31 @@ export const adminRoutes: Array<RouteConfig> = [
                 title: '账号管理',
                 meta: {target: '_blank'},
                 viewName: 'AdminAccountView'
+            }, {
+                path: 'system',
+                name: 'System',
+                title: '系统管理',
+                viewName: 'SystemLayoutView',
+                children: [
+
+                ]
             }
         ],
-
+    },
+    {
+        path: '/setting',
+        name: 'Setting',
+        title: '系统配置',
+        icon: (<SettingOutlined/>),
+        viewName: 'AdminLayoutView',
+        children: [
+            {
+                path: 'mailbox',
+                name: 'MailBox',
+                title: '邮箱配置',
+                viewName: 'AdminAccountView'
+                // viewName: 'SystemMailboxView'
+            }
+        ]
     }
 ];

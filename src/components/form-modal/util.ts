@@ -1,6 +1,12 @@
-import {FormModalHolder, OnFormModalSubmit} from "@/components/form-modal/type";
+import {FormModalHolder} from "@/components/form-modal/type";
 import {reactive, h, VNode} from "vue";
 
+/**
+ * 创建Layout
+ */
+export const createLayout = (span: number):{span: number} => {
+    return {span};
+}
 
 /**
  * 创建表单的Holder

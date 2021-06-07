@@ -6,10 +6,12 @@
 import {PageResult, TableHolder} from "@/components/table/type";
 import {reactive} from 'vue';
 import {AxiosPromise} from "axios";
+import {Resp} from "@/utils/type";
 
 export function createTableHolder(): TableHolder {
     const holder: TableHolder = reactive({
         loading: false,
+        rowKey: 'id',
         page: {
             current: 1,
             pageSize: 20,
@@ -24,7 +26,7 @@ export function createTableHolder(): TableHolder {
  * @param holder            表格Holder
  * @param promise           业务响应信息
  */
-export function handlerDataSource(holder: TableHolder, promise: AxiosPromise<PageResult<unknown>>): AxiosPromise {
+export function handlerDataSource(holder: TableHolder, promise: Resp<PageResult<unknown>>): AxiosPromise {
     promise.then(({data})=>{
         holder.dataSource = data?.list;
         holder.page.total = parseInt(data?.total.toString());

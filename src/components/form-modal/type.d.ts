@@ -3,7 +3,6 @@
  */
 import {VNode} from "vue";
 
-export declare type OnFormModalSubmit<T> = (() =>void) | ((data: T) => void);
 /**
  * 表单
  */

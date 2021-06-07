@@ -1,3 +1,16 @@
+import {ValidationRule} from "ant-design-vue/lib/form/Form";
+
+export declare interface BaseEntity {
+    /**
+     * 记录ID
+     */
+    id?: string;
+}
+
+
+export declare type Rules<T> = {[key: string]: ValidationRule | ValidationRule[]} & {[key in keyof T]: ValidationRule | ValidationRule[]};
+
+
 /**
  * 响应类
  */
