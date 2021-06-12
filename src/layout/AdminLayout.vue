@@ -41,6 +41,7 @@ export default class AdminLayout extends Vue implements ClassComponentHooks {
   setBreadcrumb(): void{
     this.breadcrumbNames.splice(0, this.breadcrumbNames.length);
     let currentRoute = this.$route;
+    console.log(currentRoute.matched);
     for (let route of currentRoute.matched) {
       if (route.meta.data) {
         let data = route.meta.data as RouteConfig;

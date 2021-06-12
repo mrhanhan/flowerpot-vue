@@ -17,7 +17,7 @@ export function parseRoutes(routes: Array<RouteConfig>, viewMap: ViewMap): Array
      */
     const eachRoute = (route: RouteConfig) => {
 
-        const routeRecordRaw: RouteRecordRaw = {...route as RouteRecordRaw, meta: {data: route}};
+        const routeRecordRaw: RouteRecordRaw = {...route as RouteRecordRaw, meta: {data: {...route}}};
         // 如果视图不存在，并且有视图名称，尝试设置视图
         if (!route.component && !!route.viewName) {
             routeRecordRaw.component = viewMap[route.viewName];
@@ -27,13 +27,17 @@ export function parseRoutes(routes: Array<RouteConfig>, viewMap: ViewMap): Array
             routeRecordRaw.children = parseRoutes(route.children, viewMap);
         } else if (!!route.layoutViewName && viewMap[route.layoutViewName]) {
             // 如果没有children 判断是否是有layout
+
             const newLayoutPath: RouteRecordRaw = {
                 component: viewMap[route.layoutViewName],
                 path: routeRecordRaw.path,
                 name: routeRecordRaw.name,
-                meta: routeRecordRaw.meta,
+                meta: {data: {...route}},
                 children: [routeRecordRaw]
             };
+            routeRecordRaw.path = '';
+            const config: RouteConfig = routeRecordRaw.meta?.data as RouteConfig;
+            config.title = '';
             return newLayoutPath;
 
         }

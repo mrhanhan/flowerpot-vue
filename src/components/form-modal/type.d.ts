@@ -46,3 +46,17 @@ export declare interface FormModalHolder {
      */
     end();
 }
+
+
+export declare interface StdModalContext {
+    /**
+     * 打开标签
+     * @param title     打开
+     * @param content   Content
+     */
+    open(title: string, content?: VNode|JSX.Element);
+    /**
+     * 关闭Modal
+     */
+    close();
+}

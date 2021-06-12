@@ -35,3 +35,34 @@ export declare interface Result<T> {
  * 参数
  */
 export declare type Param<T> = {[key in string]: T}
+
+export interface NoticeCallback {
+    ():void
+}
+
+/**
+ * 消费者
+ */
+export interface Consumer<T> {
+    (arg: T): void
+}
+
+/**
+ * 消费者
+ */
+export interface BiConsumer<T, R> {
+    (arg: T, arg2: R): void
+}
+
+/**
+ * 供应商
+ */
+export interface Supplier<T> {
+    (): T
+}
+/**
+ * Func
+ */
+export interface Func<T, R> {
+    (arg: T): R
+}

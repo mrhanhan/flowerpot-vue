@@ -1,5 +1,5 @@
-import {FormModalHolder} from "@/components/form-modal/type";
-import {reactive, h, VNode} from "vue";
+import {FormModalHolder, StdModalContext} from "@/components/form-modal/type";
+import {reactive, h, VNode, provide, Ref, ref} from "vue";
 
 /**
  * 创建Layout
@@ -34,4 +34,11 @@ export function createFormModalHolder(): FormModalHolder {
         }
     });
     return holder;
+}
+
+
+export function getStdModal(key?: string):Ref<StdModalContext>{
+    const context: Ref<StdModalContext> = ref(<StdModalContext>{});
+    provide(key || 'StdModalContext', context)
+    return context;
 }

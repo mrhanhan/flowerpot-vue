@@ -65,8 +65,7 @@ export const adminRoutes: Array<RouteConfig> = [
                 path: 'mailbox',
                 name: 'MailBox',
                 title: '邮箱配置',
-                viewName: 'AdminAccountView'
-                // viewName: 'SystemMailboxView'
+                viewName: 'AdminSettingMailboxView'
             }
         ]
     }
