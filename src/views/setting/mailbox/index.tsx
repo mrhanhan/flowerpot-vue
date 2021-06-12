@@ -4,9 +4,11 @@ import {Mailbox} from "@/views/setting/mailbox/type";
 import {getMailboxList} from "@/service/setting/mailbox";
 import {StdModal, getStdModal} from "@/components/form-modal";
 import {Consumer, NoticeCallback, Supplier} from "@/models/common";
+import MailboxForm from './form'
 
 export default defineComponent({
     setup() {
+        const stdModal = getStdModal();
         const dataSource: Ref<Mailbox[]> = ref([]);
         const loading: Ref<boolean> = ref(false);
         const loadDataSource = () => {
@@ -20,14 +22,11 @@ export default defineComponent({
             return new Promise((resolve) => {setTimeout(resolve, 3000)});
         }
         const onEdit: Consumer<Mailbox> = (row) => {
-            console.log(row)
+            console.log(stdModal.value.open('你好', <MailboxForm/>))
         }
 
         // 调用执行
         onBeforeMount(loadDataSource);
-        onMounted(() =>{
-            console.log(getStdModal());
-        })
 
         return {dataSource, loading, onOk, onEdit};
     },
@@ -48,7 +47,7 @@ export default defineComponent({
                     </>
                 }}/>
             </Table>
-            <StdModal onOk={onOk}/>
+            <StdModal onSubmit={onOk}/>
         </Card>
     }
 });
