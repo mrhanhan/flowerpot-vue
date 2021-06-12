@@ -36,9 +36,20 @@ export function createFormModalHolder(): FormModalHolder {
     return holder;
 }
 
+const Map: {[index: string]: StdModalContext} = {};
 
-export function getStdModal(key?: string):Ref<StdModalContext>{
-    const context: Ref<StdModalContext> = ref(<StdModalContext>{});
-    provide(key || 'StdModalContext', context)
-    return context;
+export function removeStdModal(id: string) {
+    delete Map[id];
+}
+
+/**
+ * 注册StdModalContext
+ * @param id    ID
+ * @param context StdModalContext
+ */
+export function registerStdModal(id: string, context: StdModalContext) {
+    Map[id] = context;
+}
+export function getStdModal(id?: string):StdModalContext{
+    return Map[id || 'StdModalContext'];
 }

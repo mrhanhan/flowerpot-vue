@@ -1,7 +1,8 @@
-import {defineComponent, ref, Ref, PropType, VNode, onMounted, getCurrentInstance, inject} from 'vue';
+import {defineComponent, ref, Ref, PropType, VNode, onBeforeUnmount} from 'vue';
 import {Modal, Spin} from "ant-design-vue";
 import {NoticeCallback, Supplier} from "@/models/common";
 import {StdModalContext} from "@/components/form-modal/type";
+import {registerStdModal} from "@/components/form-modal/util";
 
 export default defineComponent({
     name: 'std-modal',
@@ -11,7 +12,7 @@ export default defineComponent({
             required: false,
             default: true
         },
-        key: {
+        id: {
             type: String,
             required: false,
             default: 'StdModalContext'
@@ -40,21 +41,25 @@ export default defineComponent({
                 visible.value = false;
             }
         }
-        const modalContext: Ref<StdModalContext> = inject(props.key) as Ref<StdModalContext>;
-        if (modalContext) {
-            modalContext.value = {
-                open(t: string, c?: VNode | JSX.Element) {
-                    title.value = t;
-                    if (c) {
-                        content.value = c;
-                    }
-                    visible.value = true;
-                },
-                close() {
-                    visible.value = false;
+        const context: StdModalContext = {
+            open(t: string, c?: VNode | JSX.Element) {
+                title.value = t;
+                if (c) {
+                    content.value = c;
                 }
-            };
-        }
+                visible.value = true;
+            },
+            close() {
+                visible.value = false;
+            }
+        };
+        // 注册 Context
+        const id: string = props.id || '';
+        registerStdModal(id, context);
+
+        onBeforeUnmount(() => {
+            registerStdModal(id, context);
+        });
         return {onInnerOk, onInnerCancel, loading, visible, title, content};
     },
     render() {
