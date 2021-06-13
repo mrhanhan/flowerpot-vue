@@ -1,6 +1,6 @@
 import {defineComponent, ref, Ref, PropType, VNode, onBeforeUnmount} from 'vue';
 import {Modal, Spin} from "ant-design-vue";
-import {NoticeCallback, Supplier} from "@/models/common";
+import {Func, NoticeCallback, Supplier} from "@/models/common";
 import {StdModalContext} from "@/components/form-modal/type";
 import {registerStdModal} from "@/components/form-modal/util";
 
@@ -17,7 +17,7 @@ export default defineComponent({
             required: false,
             default: 'StdModalContext'
         },
-        onSubmit: Function as PropType<Supplier<Promise<any>>>,
+        onSubmit: Function as PropType<Func<unknown, Promise<any>>>,
         onCancel: Function as PropType<NoticeCallback>
     },
     emits: ['ok', 'cancel'],
@@ -29,9 +29,21 @@ export default defineComponent({
         const onInnerOk = (): void => {
             if (props.onSubmit) {
                 loading.value = true;
-                props.onSubmit().finally(() => {
-                    loading.value = false;
-                });
+                const vnode: unknown = (content.value as unknown);
+                // 判断注入的子组件是否有onSubmit方法
+                type Component = {component: {ctx?: {onSubmit?: Supplier<Promise<unknown>>}}};
+                const component: Component = (vnode as Component);
+                // 调用子组件的方法
+                if (component.component.ctx && component.component.ctx.onSubmit) {
+                    component.component.ctx.onSubmit().then((res) => {
+                        if (props.onSubmit) {
+                            props.onSubmit(res).finally(() => {
+                                loading.value = false;
+                            });
+                        }
+                    });
+                }
+
             }
             emit('ok');
         };
@@ -63,7 +75,7 @@ export default defineComponent({
         return {onInnerOk, onInnerCancel, loading, visible, title, content};
     },
     render() {
-        const {onInnerOk, onInnerCancel, loading, visible, title, $slots, content} = this;
+        const {onInnerOk, onInnerCancel, loading, visible, title, content} = this;
         return <>
             <Modal confirmLoading={loading} maskClosable={false} visible={visible} title={title} onOk={onInnerOk} onCancel={onInnerCancel}
                    destroyOnClose={true}>

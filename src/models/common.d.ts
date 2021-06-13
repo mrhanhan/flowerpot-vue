@@ -1,4 +1,5 @@
 import {ValidationRule} from "ant-design-vue/lib/form/Form";
+import {VNode} from "vue";
 
 export declare interface BaseEntity {
     /**
@@ -66,3 +67,5 @@ export interface Supplier<T> {
 export interface Func<T, R> {
     (arg: T): R
 }
+
+export type Elm = VNode | JSX.Element

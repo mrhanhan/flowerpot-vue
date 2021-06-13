@@ -3,8 +3,8 @@ import {Button, Card, Table} from "ant-design-vue";
 import {Mailbox} from "@/views/setting/mailbox/type";
 import {getMailboxList} from "@/service/setting/mailbox";
 import {StdModal, getStdModal} from "@/components/form-modal";
-import {Consumer, Supplier} from "@/models/common";
-import MailboxForm from './form'
+import {Consumer, Func, Supplier} from "@/models/common";
+import MailboxForm from './mailbox-form'
 
 export default defineComponent({
     setup() {
@@ -16,8 +16,9 @@ export default defineComponent({
                 dataSource.value = data;
             }).finally(() => loading.value = false);
         };
-        const onOk: Supplier<Promise<any>> = () => {
+        const onOk: Func<unknown, Promise<any>> = (any) => {
             console.log(1);
+            console.log(any);
             return new Promise((resolve) => {setTimeout(resolve, 3000)});
         }
         const onEdit: Consumer<Mailbox> = (row) => {
