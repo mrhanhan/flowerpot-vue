@@ -5,17 +5,18 @@ import {viewMap} from "@/router/view-map";
 import {adminRoutes} from "@/router/config";
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(''),
   routes: [
     {
       path: '/',
-      name: 'Home',
-      redirect: '/home'
+      name: 'Index',
+      redirect: to => {
+        console.log(to)
+        return '/home'
+      }
     },
     ...parseRoutes(adminRoutes, viewMap)
   ]
 });
-console.log(parseRoutes(adminRoutes, viewMap));
-
 
 export default router

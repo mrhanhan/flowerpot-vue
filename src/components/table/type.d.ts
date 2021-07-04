@@ -131,6 +131,13 @@ export declare interface TableColumn {
     slots?: {[key in string]: VNode | (()=>VNode)}
 }
 
+export declare interface PageRequest {
+
+    current?: number;
+    pageSize?: number;
+    searchWord?: string
+}
+
 /**
  * Table
  */
@@ -158,6 +165,10 @@ export declare interface TableHolder {
      * 数据源
      */
     dataSource?: unknown[];
+    /**
+     *
+     */
+    searchWord?: string;
 }
 
 /**
@@ -171,5 +182,5 @@ export declare interface PageResult<T> {
     /**
      * 总记录条数
      */
-    total: number | string;
+    total: number;
 }

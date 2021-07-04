@@ -5,10 +5,13 @@ import {API_BASE_URL} from "@/utils/API";
 /**
  * Result Response转换
  * @param res
+ * @param header
  */
-const resultTransformResponse = (res: string) => {
-    const {data} = JSON.parse(res) as {data: Param<unknown>};
-    return data;
+const resultTransformResponse = (res: string, header: Record<string, unknown>) => {
+    if (header['content-type'] === 'application/json') {
+        const {data} = JSON.parse(res) as {data: Param<unknown>}; return data;
+    }
+    return res;
 }
 
 /**

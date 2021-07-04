@@ -6,6 +6,14 @@ export declare interface BaseEntity {
      * 记录ID
      */
     id?: string;
+    /**
+     * 新增时间
+     */
+    createTime?: string;
+    /**
+     * 修改时间
+     */
+    modifyTime?: string;
 }
 
 

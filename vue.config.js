@@ -21,8 +21,21 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://localhost:7081'
-            }
+                target: 'http://localhost:7082'
+            },
+            '/v2': {
+                target: 'http://localhost:7082'
+            },
+            '/doc.html': {
+                target: 'http://localhost:7082'
+            },
+            '/webjars': {
+                target: 'http://localhost:7082'
+            },
+            '/swagger-resources': {
+                target: 'http://localhost:7082'
+            },
+
         }
     }
 

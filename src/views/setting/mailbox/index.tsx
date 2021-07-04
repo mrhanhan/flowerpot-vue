@@ -1,9 +1,9 @@
-import {defineComponent, Ref, ref, onBeforeMount, onMounted} from 'vue';
-import {Button, Card, Table} from "ant-design-vue";
+import {defineComponent, Ref, ref, onBeforeMount} from 'vue';
+import {Button, Card, message, Table} from "ant-design-vue";
 import {Mailbox} from "@/views/setting/mailbox/type";
-import {getMailboxList} from "@/service/setting/mailbox";
+import {getMailboxList, updateMailbox} from "@/service/setting/mailbox";
 import {StdModal, getStdModal} from "@/components/form-modal";
-import {Consumer, Func, Supplier} from "@/models/common";
+import {Consumer, Func} from "@/models/common";
 import MailboxForm from './mailbox-form'
 
 export default defineComponent({
@@ -16,22 +16,22 @@ export default defineComponent({
                 dataSource.value = data;
             }).finally(() => loading.value = false);
         };
-        const onOk: Func<unknown, Promise<any>> = (any) => {
-            console.log(1);
-            console.log(any);
-            return new Promise((resolve) => {setTimeout(resolve, 3000)});
-        }
         const onEdit: Consumer<Mailbox> = (row) => {
-            getStdModal().open('你好', <MailboxForm/>);
+            getStdModal().open('编辑邮箱配置', <MailboxForm model={row}/>, (data: unknown) => {
+                return updateMailbox(data as Mailbox).then(() => {
+                    loadDataSource();
+                    message.success('更新成功');
+                });
+            });
         }
 
         // 调用执行
         onBeforeMount(loadDataSource);
 
-        return {dataSource, loading, onOk, onEdit};
+        return {dataSource, loading, onEdit};
     },
     render() {
-        const {dataSource, loading, onOk, onEdit} = this;
+        const {dataSource, loading, onEdit} = this;
         return <Card>
             <Table dataSource={dataSource} rowKey={"id"} loading={loading}>
                 <Table.Column title={"编码"} dataIndex={"code"}/>
@@ -39,7 +39,7 @@ export default defineComponent({
                 <Table.Column title={"账号"} dataIndex={"account"}/>
                 <Table.Column title={"Host"} dataIndex={"mailHost"}/>
                 <Table.Column title={"端口"} dataIndex={"mailPort"}/>
-                <Table.Column title={"协议"} dataIndex={"Protocol"}/>
+                <Table.Column title={"协议"} dataIndex={"mailProtocol"}/>
                 <Table.Column title={"说明"} dataIndex={"desc"}/>
                 <Table.Column title={"操作"} dataIndex={"id"} customRender={({record}) => {
                     return <>
@@ -47,7 +47,7 @@ export default defineComponent({
                     </>
                 }}/>
             </Table>
-            <StdModal onSubmit={onOk}/>
+            <StdModal width={800} />
         </Card>
     }
 });

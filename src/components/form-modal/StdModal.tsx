@@ -7,6 +7,7 @@ import {registerStdModal} from "@/components/form-modal/util";
 export default defineComponent({
     name: 'std-modal',
     props: {
+        width: Number,
         cancelClose: {
             type: Boolean,
             required: false,
@@ -17,7 +18,7 @@ export default defineComponent({
             required: false,
             default: 'StdModalContext'
         },
-        onSubmit: Function as PropType<Func<unknown, Promise<any>>>,
+        onSubmit: Function as PropType<Func<unknown, Promise<unknown>>>,
         onCancel: Function as PropType<NoticeCallback>
     },
     emits: ['ok', 'cancel'],
@@ -26,8 +27,9 @@ export default defineComponent({
         const visible: Ref<boolean> = ref(false);
         const title: Ref<string> = ref('');
         const content: Ref<JSX.Element | VNode> = ref(<></>);
+        const submit: Ref<Func<unknown, Promise<unknown>> | undefined> = ref(props.onSubmit);
         const onInnerOk = (): void => {
-            if (props.onSubmit) {
+            if (submit.value) {
                 loading.value = true;
                 const vnode: unknown = (content.value as unknown);
                 // 判断注入的子组件是否有onSubmit方法
@@ -36,11 +38,17 @@ export default defineComponent({
                 // 调用子组件的方法
                 if (component.component.ctx && component.component.ctx.onSubmit) {
                     component.component.ctx.onSubmit().then((res) => {
-                        if (props.onSubmit) {
-                            props.onSubmit(res).finally(() => {
+                        if (submit.value) {
+                            submit.value(res).then(() => {
+                                visible.value = false;
+                            }).finally(() => {
                                 loading.value = false;
                             });
+                        } else {
+                            loading.value = false;
                         }
+                    }).catch(() => {
+                        loading.value = false;
                     });
                 }
 
@@ -54,10 +62,13 @@ export default defineComponent({
             }
         }
         const context: StdModalContext = {
-            open(t: string, c?: VNode | JSX.Element) {
+            open(t: string, c?: VNode | JSX.Element, s?:Func<unknown, Promise<unknown>>) {
                 title.value = t;
                 if (c) {
                     content.value = c;
+                }
+                if (s)  {
+                    submit.value = s;
                 }
                 visible.value = true;
             },
@@ -75,9 +86,9 @@ export default defineComponent({
         return {onInnerOk, onInnerCancel, loading, visible, title, content};
     },
     render() {
-        const {onInnerOk, onInnerCancel, loading, visible, title, content} = this;
+        const {onInnerOk, onInnerCancel, loading, visible, title, content, width} = this;
         return <>
-            <Modal confirmLoading={loading} maskClosable={false} visible={visible} title={title} onOk={onInnerOk} onCancel={onInnerCancel}
+            <Modal confirmLoading={loading} maskClosable={false} visible={visible} width={width} title={title} onOk={onInnerOk} onCancel={onInnerCancel}
                    destroyOnClose={true}>
                 <Spin spinning={loading}>
                     {{default: () => content}}

@@ -16,7 +16,8 @@ export function createTableHolder(): TableHolder {
             current: 1,
             pageSize: 20,
             pageSizeOption: ['20', '40', '80', '100', '500']
-        }
+        },
+        searchWord: ''
     });
     return reactive(holder);
 }

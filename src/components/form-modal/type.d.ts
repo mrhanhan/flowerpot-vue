@@ -2,6 +2,7 @@
  * Submit
  */
 import {VNode} from "vue";
+import {Func} from "@/models/common";
 
 /**
  * 表单
@@ -24,6 +25,7 @@ export declare interface FormModalHolder {
      * Content
      */
     content?: VNode | JSX.Element;
+
     /**
      * 关闭表单
      */
@@ -34,7 +36,7 @@ export declare interface FormModalHolder {
      * @param title         标题
      * @param content       Content
      */
-    open(title: string, content?: VNode| JSX.Element);
+    open(title: string, content?: VNode | JSX.Element);
 
     /**
      * 打开 loading
@@ -53,8 +55,10 @@ export declare interface StdModalContext {
      * 打开标签
      * @param title     打开
      * @param content   Content
+     * @param submit    回调方法
      */
-    open(title: string, content?: VNode|JSX.Element);
+    open(title: string, content?: VNode | JSX.Element, submit?: Func<unknown, Promise<unknown>>);
+
     /**
      * 关闭Modal
      */

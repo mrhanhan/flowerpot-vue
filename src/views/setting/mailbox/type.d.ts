@@ -33,4 +33,8 @@ export interface Mailbox {
      * 配置
      */
     mailConfig?: string;
+    /**
+     * 邮件协议
+     */
+    mailProtocol?: string;
 }
