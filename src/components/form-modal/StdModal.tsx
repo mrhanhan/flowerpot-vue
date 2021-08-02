@@ -60,6 +60,7 @@ export default defineComponent({
             if (props.cancelClose) {
                 visible.value = false;
             }
+            loading.value = false;
         }
         const context: StdModalContext = {
             open(t: string, c?: VNode | JSX.Element, s?:Func<unknown, Promise<unknown>>) {

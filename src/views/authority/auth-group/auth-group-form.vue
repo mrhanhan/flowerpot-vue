@@ -1,10 +1,10 @@
 <template>
   <Form ref="form" :rules="rules" :label-col="{span: 4}" :wrapper-col="{span:20}" :model="formModel">
     <FormItem label="分组名称" name="name">
-      <Input placeholder="请输入分组名称" :disabled="!editable" autocomplete="off" v-model:value="formModel.name"/>
+      <Input placeholder="请输入分组名称" :readonly="!editable" autocomplete="off" v-model:value="formModel.name"/>
     </FormItem>
     <FormItem label="分组描述" name="desc">
-      <TextArea placeholder="请输入分组名称" :disabled="!editable" v-model:value="formModel.desc" show-count></TextArea>
+      <TextArea placeholder="请输入分组名称" :readonly="!editable" v-model:value="formModel.desc" show-count></TextArea>
     </FormItem>
   </Form>
 </template>

@@ -1,0 +1,42 @@
+
+.group(@back-color, @item-color, @separation-color){
+  .rule-group {
+    background: @back-color;
+    width: 100%;
+    padding: 2px;
+    >* {
+      margin: 4px;
+      background: @item-color;
+      padding: 5px;
+      display: block;
+    }
+    .rule-group-item {
+      display: flex;
+      .rule-group-item-content {
+        flex: 1;
+      }
+      .rule-group-item-tools {
+
+      }
+    }
+    .rule-group-separation {
+      background: @separation-color;
+      padding: 0 4px;
+    }
+  }
+  .ant-btn-ghost:hover, .ant-btn-ghost:focus {
+    border: 1px solid white;
+    color: white;
+  }
+}
+
+.and-rule {
+  .group(#1f1f1f, #303030, #177ddc)
+}
+
+.or-rule {
+  .group(#1f1f1f, #303030, #177ddc)
+}
+.root-rule {
+  .group(#1f1f1f, #303030, #177ddc)
+}

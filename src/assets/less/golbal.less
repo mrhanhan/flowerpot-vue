@@ -1,4 +1,19 @@
-
+@import "./base";
 .search-table {
   margin-top: 15px;
+}
+
+.ant-form {
+  .ant-radio-disabled {
+    + span {
+      color: @form-disable-color;
+    }
+  }
+  .ant-select-disabled  {
+    .ant-select-selector {
+      span {
+        color: @form-disable-color;
+      }
+    }
+  }
 }

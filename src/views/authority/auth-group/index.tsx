@@ -97,7 +97,7 @@ export default defineComponent({
                 } }/>
                 <TableColumn title="说明" data-index="desc"/>
                 <TableColumn title="操作" width={200} customRender={({record}) => {
-                    return record.system === 1 ? <><Button size={"small"}>查看</Button></> : <Button.Group  size={"small"}>
+                    return record.system === 1 ? <><Button size={"small"} onClick={() => onInfo(record)}>查看</Button></> : <Button.Group  size={"small"}>
                         <Button onClick={() => onEdit(record)}>编辑</Button>
                         <Button onClick={() => onDelete(record)}>删除</Button>
                         <Button onClick={() => onInfo(record)}>查看</Button>

@@ -5,7 +5,7 @@ module.exports = {
     pluginOptions: {
         'style-resources-loader': {
             preProcessor: 'less',
-            patterns: [path.resolve(__dirname, "./src/less/base.less")] // 引入全局样式变量（文件路径）
+            patterns: [path.resolve(__dirname, "./src/asset/less/base.less")] // 引入全局样式变量（文件路径）
         }
     },
     css: {
